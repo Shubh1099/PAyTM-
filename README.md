@@ -1,2 +1,2 @@
-# PAyTM-
+# PAyTM
 Paytm web app
