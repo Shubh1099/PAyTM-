@@ -1,9 +1,12 @@
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
-const accountRouter = require("./account");
+const accountRouter = require("./routes/accounts");
 const rootRouter = require("./routes/index");
 const userRouter = require("./routes/user");
+
+const PORT = process.env.PORT;
 
 const app = express();
 
@@ -14,4 +17,4 @@ app.use("/api/v1", rootRouter);
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/account", accountRouter);
 
-app.listen(PORT, console.log(`App is Lsitening on port : ${process.env.PORT}`));
+app.listen(PORT, console.log(`App is Lsitening on port : ${PORT}`));

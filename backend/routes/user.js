@@ -1,9 +1,10 @@
 require("dotenv").config();
 const express = require("express");
-const { User } = require("../db");
+const { User,Account } = require("../db");
 const jwt = require("jsonwebtoken");
 const { signupSchema, signinSchema, updateBody } = require("../models/schemas");
 const { authMiddleware } = require("../middlewares/auth");
+
 const router = express.Router();
 const JWT_SECRET = process.env.SECRET_KEY;
 
@@ -30,11 +31,6 @@ router.post("/signup", async (req, res) => {
     });
   }
 
-  await Account.create({
-    userId,
-    balance: 1 + Math.random() * 10000,
-  });
-
   const user = await User.create({
     username: req.body.username,
     firstName: req.body.firstName,
@@ -42,9 +38,14 @@ router.post("/signup", async (req, res) => {
     password: req.body.password,
   });
 
+  await Account.create({
+    userId: user._id,
+    balance: 1 + Math.random() * 10000,
+  });
+
   // Generate JWT
   const token = jwt.sign(
-    { id: user._Id, username: user.username, firstName: user.firstName }, // Payload
+    { id: user._id, username: user.username, firstName: user.firstName }, // Payload
     JWT_SECRET // Secret key
   );
 

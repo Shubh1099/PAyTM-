@@ -13,9 +13,9 @@ const signinSchema = z.object({
 });
 
 const updateBody = z.object({
-  password: zod.string().optional(),
-  firstName: zod.string().optional(),
-  lastName: zod.string().optional(),
+  password: z.string().optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
 });
 
 module.exports = { signupSchema, signinSchema, updateBody };
